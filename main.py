@@ -206,7 +206,7 @@ async def chat(request: ChatRequest):
     })
 
     
-    conversation[:] = conversation[-5:]
+    # conversation[:] = conversation[-5:]
 
     try:
         response = client.responses.create(
