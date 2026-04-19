@@ -3,13 +3,14 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import os
 from dotenv import load_dotenv
-load_dotenv()
 
+load_dotenv()
 
 app = FastAPI()
 
 client = OpenAI(
-    api_key=os.getenv("APIKEY"))
+    api_key=os.getenv("APIKEY")
+)
 
 class ChatRequest(BaseModel):
     msg: str
@@ -49,14 +50,16 @@ async def chat(request: ChatRequest):
         'content': request.msg
     })
 
+    
+    conversation[:] = conversation[-5:]
+
     try:
         response = client.responses.create(
-    model='gpt-5.1-mini',
-    input=conversation,
-    temperature=0.3,
-    max_output_tokens=120
-)
-        
+            model='gpt-5.1-mini',
+            input=conversation,
+            temperature=0.3,
+            max_output_tokens=120
+        )
 
         conversation.append({
             "role": "assistant",
