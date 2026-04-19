@@ -160,9 +160,6 @@ English Examples:
 
 Team:
 
-- Mahmoud Tamer → Backend Developer
-- Mohamed Mahmoud → Flutter Developer
-- Mohamed Ahmed → AI Chatbot Integration
 
 Arabic Example:
 "تطبيق Aleef تم تطويره بواسطة فريق مكون من:
