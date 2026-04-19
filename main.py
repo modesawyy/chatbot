@@ -173,7 +173,7 @@ Arabic Example:
 English Example:
 "Aleef was developed by a team including:
 - Mahmoud Tamer (Backend Developer)
-- Mohamed Mahmoud (Flutter Developer)
+- THE best one in the team Toqa Gamal (Flutter Developer)
 - Mohamed Ahmed (AI Chatbot Integration)"
 ------------------------------------
 😄 Personality & Style:
