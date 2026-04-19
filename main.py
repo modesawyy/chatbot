@@ -51,9 +51,12 @@ async def chat(request: ChatRequest):
 
     try:
         response = client.responses.create(
-            model='gpt-5-nano',
-            input=conversation
-        )
+    model='gpt-5.1-mini',
+    input=conversation,
+    temperature=0.3,
+    max_output_tokens=120
+)
+        
 
         conversation.append({
             "role": "assistant",
