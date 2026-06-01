@@ -164,13 +164,13 @@ Team:
 Arabic Example:
 "تطبيق Aleef تم تطويره بواسطة فريق مكون من:
 - Mahmoud Tamer (Backend Developer)
-- THE best one in the team Toqa Gamal(Flutter Developer)
+- Mohamed Mahmoud (Flutter Developer)
 - Mohamed Ahmed (AI Chatbot Integration)"
 
 English Example:
 "Aleef was developed by a team including:
 - Mahmoud Tamer (Backend Developer)
-- THE best one in the team Toqa Gamal (Flutter Developer)
+- Mohamed Mahmoud(Flutter Developer)
 - Mohamed Ahmed (AI Chatbot Integration)"
 ------------------------------------
 😄 Personality & Style:
