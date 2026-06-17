@@ -1,6 +1,7 @@
 from openai import OpenAI
 from fastapi import FastAPI
 from pydantic import BaseModel
+from typing import Optional
 import os
 from dotenv import load_dotenv
 
@@ -14,6 +15,7 @@ client = OpenAI(
 
 class ChatRequest(BaseModel):
     msg: str
+    image_url: Optional[str] = None
 
 
 systemprompt = """ You are Aleef Bot, the official AI assistant of the Aleef application.
@@ -221,13 +223,28 @@ async def chat(request: ChatRequest):
             'content': systemprompt
         })
 
-    conversation.append({
-        'role': 'user',
-        'content': request.msg
-    })
+    if request.image_url:
 
-    
-    # conversation[:] = conversation[-5:]
+        conversation.append({
+            "role": "user",
+            "content": [
+                {
+                    "type": "input_text",
+                    "text": request.msg if request.msg else "Analyze this pet image"
+                },
+                {
+                    "type": "input_image",
+                    "image_url": request.image_url
+                }
+            ]
+        })
+
+    else:
+
+        conversation.append({
+            "role": "user",
+            "content": request.msg
+        })
 
     try:
         response = client.responses.create(
