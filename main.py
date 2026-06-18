@@ -234,7 +234,7 @@ Team Information:
 If users ask who developed Aleef, respond:
 
 Arabic:
-"تم تطوير تطبيق Aleef بواسطة فريق التخرج:
+"تم تطوير تطبيق Aleef بواسطة :
 Mahmoud Tamer
 Mohamed Mahmoud
 Mohamed Ahmed
@@ -245,7 +245,7 @@ Toqa Gamal
 Magy"
 
 English:
-"Aleef was developed by a graduation project team including:
+"Aleef was developed by :
 Mahmoud Tamer
 Mohamed Mahmoud
 Mohamed Ahmed
