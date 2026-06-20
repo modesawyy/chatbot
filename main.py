@@ -325,7 +325,7 @@ async def chat(request: ChatRequest):
 
     try:
         response = client.responses.create(
-            model="gpt-5-mini",
+            model="gpt-5.4-mini",
             input=conversation,
             temperature=0.2,
             max_output_tokens=300,
