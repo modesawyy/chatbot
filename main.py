@@ -15,6 +15,7 @@ client = OpenAI(api_key=os.getenv("APIKEY"))
 class ChatRequest(BaseModel):
     msg: str
     image_url: Optional[str] = None
+    user_id: str  # ✅ ضيفناها
 
 
 systemprompt = """ You are Aleef Bot, the official AI assistant of the Aleef pet care application.
@@ -289,47 +290,58 @@ Response Quality Principles:
 
 """
 
-conversation = []
+user_conversations: dict[str, list] = {}
+MAX_HISTORY = 20
 
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
 
-    if not conversation:
-        conversation.append({"role": "developer", "content": systemprompt})
+    if request.user_id not in user_conversations:
+        user_conversations[request.user_id] = [
+            {"role": "developer", "content": systemprompt}
+        ]
+
+    conversation = user_conversations[request.user_id]
 
     if request.image_url:
-
-        conversation.append(
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "input_text",
-                        "text": (
-                            request.msg if request.msg else "Analyze this pet image"
-                        ),
-                    },
-                    {"type": "input_image", "image_url": request.image_url},
-                ],
-            }
-        )
-
+        user_message = {
+            "role": "user",
+            "content": [
+                {
+                    "type": "input_text",
+                    "text": request.msg if request.msg else "Analyze this pet image",
+                },
+                {
+                    "type": "input_image",
+                    "image_url": request.image_url
+                },
+            ],
+        }
     else:
+        user_message = {"role": "user", "content": request.msg}
 
-        conversation.append({"role": "user", "content": request.msg})
+    conversation.append(user_message)
 
     try:
         response = client.responses.create(
-            model="gpt-5.4-mini",
+            model="gpt-4o-mini",
             input=conversation,
             temperature=0.2,
             max_output_tokens=300,
         )
 
-        conversation.append({"role": "assistant", "content": response.output_text})
+        bot_reply = response.output_text
+        conversation.append({"role": "assistant", "content": bot_reply})
 
-        return {"Response": response.output_text}
+        if len(conversation) > MAX_HISTORY:
+            user_conversations[request.user_id] = [
+                conversation[0],
+                *conversation[-(MAX_HISTORY - 1):]
+            ]
+
+        return {"Response": bot_reply}
 
     except Exception as e:
-        return {"error": str(e)}
+        conversation.pop()
+        return {"Response": "Sorry, I couldn't process your request. Please try again."}
