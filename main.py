@@ -15,7 +15,7 @@ client = OpenAI(api_key=os.getenv("APIKEY"))
 class ChatRequest(BaseModel):
     msg: str
     image_url: Optional[str] = None
-    user_id: str  # ✅ ضيفناها
+    user_id: str  
 
 
 systemprompt = """ You are Aleef Bot, the official AI assistant of the Aleef pet care application.
@@ -325,7 +325,7 @@ async def chat(request: ChatRequest):
 
     try:
         response = client.responses.create(
-            model="gpt-4o-mini",
+            model="gpt-5-mini",
             input=conversation,
             temperature=0.2,
             max_output_tokens=300,
